@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+scikit-learn
+google-generativeai
+requests
+python-dotenv
+firebase-admin
+neo4j

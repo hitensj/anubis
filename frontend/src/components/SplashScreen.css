@@ -1,0 +1,111 @@
+.splash-container {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-void);
+  background: radial-gradient(circle at center, #110e16 0%, var(--bg-void) 80%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  color: var(--text-primary);
+  transition: opacity 0.8s ease-in-out;
+}
+.splash-container.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.particles-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.particle {
+  position: absolute;
+  bottom: -10px;
+  width: 2px;
+  height: 2px;
+  background-color: var(--gold-bright);
+  border-radius: 50%;
+  box-shadow: 0 0 4px var(--gold-glow);
+  animation: driftUp linear infinite;
+  opacity: 0;
+}
+@keyframes driftUp {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 0.6; }
+  80% { opacity: 0.6; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+.splash-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.logo-wrapper {
+  margin-bottom: 1rem;
+}
+
+.splash-title {
+  font-size: 3rem;
+  letter-spacing: 0.2em;
+  color: var(--gold-divine);
+  margin-bottom: 0.5rem;
+}
+.letter-hidden { opacity: 0; display: inline-block; }
+.letter-in {
+  display: inline-block;
+  opacity: 0;
+  animation: charFade 0.5s ease-out forwards;
+}
+@keyframes charFade {
+  to { opacity: 1; }
+}
+
+.splash-subtitle {
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  transition: opacity 0.5s;
+}
+.hidden { opacity: 0; }
+.fade-in { opacity: 1; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+.splash-line {
+  width: 200px;
+  height: 1px;
+  background: var(--gold-dim);
+  margin: 1.5rem 0;
+  transform-origin: left;
+}
+.sweep-in { animation: sweep 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+@keyframes sweep {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.splash-loading {
+  font-size: 0.9rem;
+  color: var(--gold-dim);
+  min-height: 1.5em;
+}
+.blink { animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.skip-btn {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  border: none;
+  border-bottom: 1px solid var(--text-dim);
+  padding: 0 0 2px 0;
+  animation: fadeIn 0.5s 1s backwards;
+}
+.skip-btn:hover { color: var(--gold-divine); border-bottom-color: var(--gold-divine); }
