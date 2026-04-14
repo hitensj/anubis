@@ -12,6 +12,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Include Routers
+app.include_router(predict.router, prefix="/api/v1")
+app.include_router(shipments.router, prefix="/api/v1")
+app.include_router(chokepoints.router, prefix="/api/v1")
+app.include_router(news.router, prefix="/api/v1")
+app.include_router(alerts.router, prefix="/api/v1")
+app.include_router(analytics.router, prefix="/api/v1")
+app.include_router(health.router, prefix="/api/v1")
+
 import os
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
@@ -36,11 +45,3 @@ else:
 async def global_exception_handler(request, exc):
     return JSONResponse(status_code=500, content={"error": str(exc), "code": "INTERNAL_ERROR"})
 
-# Include Routers
-app.include_router(predict.router, prefix="/api/v1")
-app.include_router(shipments.router, prefix="/api/v1")
-app.include_router(chokepoints.router, prefix="/api/v1")
-app.include_router(news.router, prefix="/api/v1")
-app.include_router(alerts.router, prefix="/api/v1")
-app.include_router(analytics.router, prefix="/api/v1")
-app.include_router(health.router, prefix="/api/v1")
