@@ -12,13 +12,25 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Root handler to prevent 404s
-@app.get("/")
-def read_root():
-    return {"message": "ANUBIS Backend is alive! Direct your browser to the Frontend."}
+import os
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse, JSONResponse
 
-# Exception handler to return {"error": "message", "code": "ERROR_CODE"}
-from fastapi.responses import JSONResponse
+frontend_path = os.path.join(os.path.dirname(__file__), '..', 'frontend', 'dist')
+
+if os.path.exists(frontend_path):
+    app.mount("/assets", StaticFiles(directory=os.path.join(frontend_path, "assets")), name="assets")
+    
+    @app.get("/{full_path:path}")
+    def serve_frontend(full_path: str):
+        path = os.path.join(frontend_path, full_path)
+        if os.path.isfile(path):
+            return FileResponse(path)
+        return FileResponse(os.path.join(frontend_path, "index.html"))
+else:
+    @app.get("/")
+    def read_root():
+        return {"message": "ANUBIS Backend is alive! Frontend dist not found."}
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):

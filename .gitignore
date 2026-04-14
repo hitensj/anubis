@@ -1,5 +1,5 @@
 # Environments
-.env
+#.env
 .env.local
 
 # Python
@@ -14,7 +14,6 @@ backend/__pycache__/
 
 # Node
 node_modules/
-dist/
 build/
 .npm
 
